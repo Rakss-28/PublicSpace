@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const JWT_SECRET = 'const JWT_SECRET = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30';'; // Your full key
+const JWT_SECRET = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30'; // Your full key
 
 // Middleware
 app.use(cors({
@@ -18,19 +18,19 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ✅ Serve static files from "public"
+// ✅ Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Serve uploaded media
+// ✅ Serve uploaded media from the "uploads" folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Create uploads directory if not exist
+// Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Multer config
+// Multer configuration for uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, uploadsDir),
     filename: (req, file, cb) => {
@@ -64,7 +64,7 @@ const getUserPostsToday = (userId) => {
     return posts.filter(p => p.userId === userId && new Date(p.createdAt).toDateString() === today).length;
 };
 
-// Auth middleware
+// Authentication middleware
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -77,12 +77,13 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-// ✅ Serve index.html as default page
+// ✅ Default route for index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // --- API Routes ---
+
 // Register
 app.post('/api/register', async (req, res) => {
     try {
@@ -131,7 +132,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// 🔁 Add your post/upload/friends routes here...
+// TODO: Add routes for creating posts, uploading files, managing friendships...
 
 // Error handler
 app.use((error, req, res, next) => {
@@ -141,8 +142,8 @@ app.use((error, req, res, next) => {
     res.status(500).json({ error: error.message || 'Something went wrong!' });
 });
 
-// Start
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });
