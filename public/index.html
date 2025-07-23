@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Space - Social Media Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Auth Section -->
+    <div id="authSection" class="auth-container">
+        <div class="auth-form">
+            <h2 id="authTitle">Login to Public Space</h2>
+            <form id="authForm">
+                <div id="usernameField" class="form-group" style="display: none;">
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" id="authButton">Login</button>
+            </form>
+            <p class="auth-switch">
+                <span id="authSwitchText">Don't have an account?</span>
+                <a href="#" id="authSwitchLink">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main App Section -->
+    <div id="appSection" class="app-container" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <h1>Public Space</h1>
+            <div class="header-info">
+                <span id="userInfo"></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+        <!-- User Stats -->
+        <div class="user-stats">
+            <div id="statsInfo"></div>
+        </div>
+
+        <!-- Add Friend Section -->
+        <div class="add-friend-section">
+            <input type="email" id="friendEmail" placeholder="Enter friend's email">
+            <button id="addFriendBtn">Add Friend</button>
+        </div>
+
+        <!-- Create Post Section -->
+        <div class="create-post-section">
+            <form id="postForm" enctype="multipart/form-data">
+                <textarea id="postContent" placeholder="What's on your mind?" rows="3"></textarea>
+                <input type="file" id="postMedia" accept="image/*,video/*">
+                <button type="submit" id="createPostBtn">Create Post</button>
+            </form>
+        </div>
+
+        <!-- Posts Section -->
+        <div class="posts-section">
+            <h2>Recent Posts</h2>
+            <div id="postsContainer"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
